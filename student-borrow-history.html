@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShelfSnap - Borrow History</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+  <script src="global.js"></script>
+  <link rel="stylesheet" href="student-borrow-history.css" />
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div class="brand-text">
+          <h1>ShelfSnap</h1>
+          <p>Library Access in a Snap</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="student-dashboard.html" class="nav-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>DASHBOARD</span>
+        </a>
+
+        <a href="student-catalog.html" class="nav-item">
+          <i class="fa-solid fa-book"></i>
+          <span>CATALOG</span>
+        </a>
+
+        <a href="student-borrow-materials.html" class="nav-item">
+          <i class="fa-solid fa-bookmark"></i>
+          <span>BORROW MATERIALS</span>
+        </a>
+
+        <a href="student-my-borrowed.html" class="nav-item">
+          <i class="fa-solid fa-folder-open"></i>
+          <span>MY BORROWED</span>
+        </a>
+
+        <a href="student-return.html" class="nav-item">
+          <i class="fa-solid fa-rotate-left"></i>
+          <span>RETURN</span>
+        </a>
+
+        <a href="student-borrow-history.html" class="nav-item active">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>BORROW HISTORY</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="search-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search book title, borrowed date, returned date, or status..."
+          />
+        </div>
+
+        <div class="top-icons">
+          <button class="icon-btn" type="button" aria-label="Notifications">
+            <i class="fa-solid fa-bell"></i>
+            <button class="icon-btn profile-btn" id="profileBtn" type="button" aria-label="Open profile">
+  <span class="profile-thumb">
+    <i class="fa-solid fa-user"></i>
+  </span>
+</button>
+          </button>
+
+        </div>
+      </header>
+
+      <section class="content-area">
+        <section class="hero-panel">
+          <div class="hero-copy">
+            <p class="eyebrow">Borrow Activity</p>
+            <h2>Borrow History</h2>
+            <p class="hero-description">
+              Review your previous borrowing activity, track returned materials,
+              and quickly re-borrow titles that you may need again.
+            </p>
+          </div>
+
+          <div class="hero-badge">
+            <span>History Records</span>
+          </div>
+        </section>
+
+        <section class="history-section">
+          <div class="section-header">
+            <div>
+              <p class="section-label">Borrowing Archive</p>
+              <h2>Borrowed Book History</h2>
+            </div>
+          </div>
+
+          <div class="history-card">
+            <div class="history-table-wrap">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Book Title</th>
+                    <th>Borrowed</th>
+                    <th>Returned</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody id="historyTableBody">
+                  <tr class="history-row"
+                      data-title="He's Into Her"
+                      data-borrowed="3/29/26"
+                      data-returned="------"
+                      data-status="Return Pending">
+                    <td>He's Into Her</td>
+                    <td>3/29/26</td>
+                    <td>------</td>
+                    <td><span class="status-badge pending">Return Pending</span></td>
+                    <td><span class="action-placeholder">------</span></td>
+                  </tr>
+
+                  <tr class="history-row"
+                      data-title="The Great Gatsby"
+                      data-borrowed="3/20/26"
+                      data-returned="3/21/26"
+                      data-status="Returned">
+                    <td>The Great Gatsby</td>
+                    <td>3/20/26</td>
+                    <td>3/21/26</td>
+                    <td><span class="status-badge returned">Returned</span></td>
+                    <td><button class="reborrow-btn" type="button">Re-borrow</button></td>
+                  </tr>
+
+                  <tr class="history-row"
+                      data-title="To Kill a Mockingbird"
+                      data-borrowed="3/15/26"
+                      data-returned="3/20/26"
+                      data-status="Returned Late">
+                    <td>To Kill a Mockingbird</td>
+                    <td>3/15/26</td>
+                    <td>3/20/26</td>
+                    <td><span class="status-badge returned-late">Returned Late</span></td>
+                    <td><button class="reborrow-btn" type="button">Re-borrow</button></td>
+                  </tr>
+
+                  <tr class="history-row"
+                      data-title="Atomic Habits"
+                      data-borrowed="3/07/26"
+                      data-returned="3/09/26"
+                      data-status="Returned">
+                    <td>Atomic Habits</td>
+                    <td>3/07/26</td>
+                    <td>3/09/26</td>
+                    <td><span class="status-badge returned">Returned</span></td>
+                    <td><button class="reborrow-btn" type="button">Re-borrow</button></td>
+                  </tr>
+
+                  <tr class="history-row"
+                      data-title="The Psychology of Money"
+                      data-borrowed="2/28/26"
+                      data-returned="3/01/26"
+                      data-status="Returned">
+                    <td>The Psychology of Money</td>
+                    <td>2/28/26</td>
+                    <td>3/01/26</td>
+                    <td><span class="status-badge returned">Returned</span></td>
+                    <td><button class="reborrow-btn" type="button">Re-borrow</button></td>
+                  </tr>
+
+                  <tr class="history-row"
+                      data-title="Rich Dad Poor Dad"
+                      data-borrowed="2/20/26"
+                      data-returned="2/23/26"
+                      data-status="Returned Late">
+                    <td>Rich Dad Poor Dad</td>
+                    <td>2/20/26</td>
+                    <td>2/23/26</td>
+                    <td><span class="status-badge returned-late">Returned Late</span></td>
+                    <td><button class="reborrow-btn" type="button">Re-borrow</button></td>
+                  </tr>
+
+                  <tr class="history-row"
+                      data-title="The Hobbit"
+                      data-borrowed="2/18/26"
+                      data-returned="2/20/26"
+                      data-status="Returned">
+                    <td>The Hobbit</td>
+                    <td>2/18/26</td>
+                    <td>2/20/26</td>
+                    <td><span class="status-badge returned">Returned</span></td>
+                    <td><button class="reborrow-btn" type="button">Re-borrow</button></td>
+                  </tr>
+
+                  <tr class="history-row"
+                      data-title="Harry Potter and the Sorcerer's Stone"
+                      data-borrowed="2/14/26"
+                      data-returned="2/15/26"
+                      data-status="Returned">
+                    <td>Harry Potter and the Sorcerer's Stone</td>
+                    <td>2/14/26</td>
+                    <td>2/15/26</td>
+                    <td><span class="status-badge returned">Returned</span></td>
+                    <td><button class="reborrow-btn" type="button">Re-borrow</button></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p class="empty-state hidden" id="emptyState">No borrow history found.</p>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal hidden" id="successModal">
+    <div class="modal-content">
+      <div class="check-icon">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <p id="modalMessage">Success message here</p>
+    </div>
+  </div>
+
+  <div class="profile-modal-overlay hidden" id="profileModalOverlay">
+  <div class="profile-modal">
+    <button class="profile-modal-close" id="closeProfileModal" type="button">&times;</button>
+
+    <div class="profile-modal-header">
+      <div>
+        <p class="section-label">Student Profile</p>
+        <h2>Manage your personal information</h2>
+        <p class="profile-modal-subtext">
+          Review and update your details without leaving the dashboard.
+        </p>
+      </div>
+
+      <div class="profile-mini-stats">
+        <div class="profile-mini-card">
+          <span>Profile Status</span>
+          <strong>Active</strong>
+        </div>
+        <div class="profile-mini-card">
+          <span>User Type</span>
+          <strong>Student</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-shell">
+      <div class="profile-tabs">
+        <button class="tab-btn active" data-tab="personal" type="button">Personal Information</button>
+        <button class="tab-btn" data-tab="account" type="button">Account Settings</button>
+      </div>
+
+      <div class="tab-panel active" id="personalTab">
+        <div class="profile-card">
+          <div class="profile-cover"></div>
+
+          <div class="profile-head">
+            <div class="profile-avatar">
+              <span class="avatar-inner">
+                <i class="fa-solid fa-user"></i>
+              </span>
+            </div>
+
+            <div class="profile-identity">
+              <h3>Dela Cruz, Juan S.</h3>
+              <p>juandelacruz@example.com</p>
+              <span class="profile-badge">Student Account</span>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <div class="section-heading">
+              <p class="section-label">Main Details</p>
+              <h3>Personal Information</h3>
+            </div>
+
+            <div class="form-grid">
+              <div class="input-group">
+                <label for="firstName">First Name</label>
+                <input id="firstName" type="text" value="Juan" />
+              </div>
+
+              <div class="input-group">
+                <label for="surname">Surname</label>
+                <input id="surname" type="text" value="Dela Cruz" />
+              </div>
+
+              <div class="input-group">
+                <label for="middleName">Middle Name</label>
+                <input id="middleName" type="text" value="Santos" />
+              </div>
+
+              <div class="input-group">
+                <label for="userType">User Type</label>
+                <input id="userType" type="text" value="Student" disabled />
+              </div>
+
+              <div class="input-group full">
+                <label for="email">Email Address</label>
+                <input id="email" type="email" value="juandelacruz@example.com" />
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-actions">
+            <button type="button" class="btn btn-secondary" id="cancelProfileBtn">Cancel</button>
+            <button type="button" class="btn btn-primary">Save Changes</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="accountTab">
+        <div class="profile-card">
+          <div class="settings-grid">
+            <div class="settings-box">
+              <p class="section-label">Security</p>
+              <h3>Password</h3>
+              <p class="settings-text">
+                Keep your account secure by updating your password regularly.
+              </p>
+              <button type="button" class="btn btn-primary small">Change Password</button>
+            </div>
+
+            <div class="settings-box">
+              <p class="section-label">Preferences</p>
+              <h3>Notifications</h3>
+              <p class="settings-text">
+                Manage alerts related to borrowed books, due dates, and profile activity.
+              </p>
+              <button type="button" class="btn btn-secondary small">Manage Alerts</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="student-borrow-history.js"></script>
+</body>
+</html>

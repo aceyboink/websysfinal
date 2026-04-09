@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShelfSnap - Student Profile</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+  <script src="global.js"></script>
+  <link rel="stylesheet" href="student-profile.css" />
+  <script defer src="student-profile.js"></script>
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div class="brand-text">
+          <h1>ShelfSnap</h1>
+          <p>Library Access in a Snap</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="student-dashboard.html" class="nav-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>DASHBOARD</span>
+        </a>
+
+        <a href="student-catalog.html" class="nav-item">
+          <i class="fa-solid fa-book"></i>
+          <span>CATALOG</span>
+        </a>
+
+        <a href="student-borrow-materials.html" class="nav-item">
+          <i class="fa-solid fa-bookmark"></i>
+          <span>BORROW MATERIALS</span>
+        </a>
+
+        <a href="student-my-borrowed.html" class="nav-item">
+          <i class="fa-solid fa-folder-open"></i>
+          <span>MY BORROWED</span>
+        </a>
+
+        <a href="student-return.html" class="nav-item">
+          <i class="fa-solid fa-rotate-left"></i>
+          <span>RETURN</span>
+        </a>
+
+        <a href="student-borrow-history.html" class="nav-item">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>BORROW HISTORY</span>
+        </a>
+
+        <a href="student-profile.html" class="nav-item active">
+          <i class="fa-solid fa-user"></i>
+          <span>PROFILE</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="search-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search books, authors, or subject..."
+          />
+        </div>
+
+        <div class="top-icons">
+          <button class="icon-btn bell-btn" id="bellBtn" type="button">
+            <i class="fa-solid fa-bell"></i>
+            <span class="notif-badge" id="notifCount">3</span>
+          </button>
+
+          <a href="student-profile.html" class="icon-btn profile-btn" id="profileBtn">
+            <i class="fa-solid fa-user"></i>
+          </a>
+        </div>
+
+        <div class="notif-popup hidden" id="notifPopup">
+          <div class="notif-header">
+            <h3>Notifications</h3>
+            <button id="markAllReadBtn" type="button">Mark all as read</button>
+          </div>
+
+          <div class="notif-list">
+            <div class="notif-item unread">
+              <p>You successfully borrowed a book. Please return it by 2026-04-12.</p>
+              <span>Apr 06, 2026</span>
+            </div>
+
+            <div class="notif-item unread">
+              <p>Your profile information was updated successfully.</p>
+              <span>Apr 05, 2026</span>
+            </div>
+
+            <div class="notif-item unread">
+              <p>Reminder: 1 borrowed book is due tomorrow.</p>
+              <span>Apr 04, 2026</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content-area">
+        <section class="profile-hero">
+          <div class="profile-hero-copy">
+            <p class="section-label">Student Profile</p>
+            <h2>Manage your personal information</h2>
+            <p class="hero-description">
+              Review your account details, update your personal information, and
+              keep your ShelfSnap profile organized in one clean workspace.
+            </p>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-card">
+              <span>Profile Status</span>
+              <strong>Active</strong>
+            </div>
+            <div class="stat-card">
+              <span>User Type</span>
+              <strong>Student</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="profile-shell">
+          <div class="profile-tabs">
+            <button class="tab-btn active" data-tab="personal">Personal Information</button>
+            <button class="tab-btn" data-tab="account">Account Settings</button>
+          </div>
+
+          <div class="tab-panel active" id="personalTab">
+            <div class="profile-card">
+              <div class="profile-cover"></div>
+
+              <div class="profile-head">
+                <div class="profile-avatar">
+                  <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div class="profile-identity">
+                  <h3>Dela Cruz, Juan S.</h3>
+                  <p>juandelacruz@example.com</p>
+                  <span class="profile-badge">Student Account</span>
+                </div>
+              </div>
+
+              <div class="profile-section">
+                <div class="section-heading">
+                  <p class="section-label">Main Details</p>
+                  <h3>Personal Information</h3>
+                </div>
+
+                <div class="form-grid">
+                  <div class="input-group">
+                    <label for="firstName">First Name</label>
+                    <input id="firstName" type="text" value="Juan" />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="surname">Surname</label>
+                    <input id="surname" type="text" value="Dela Cruz" />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="middleName">Middle Name</label>
+                    <input id="middleName" type="text" value="Santos" />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="userType">User Type</label>
+                    <input id="userType" type="text" value="Student" disabled />
+                  </div>
+
+                  <div class="input-group full">
+                    <label for="email">Email Address</label>
+                    <input id="email" type="email" value="juandelacruz@example.com" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="profile-actions">
+                <button type="button" class="btn btn-secondary">Cancel</button>
+                <button type="button" class="btn btn-primary">Save Changes</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="accountTab">
+            <div class="profile-card">
+              <div class="settings-grid">
+                <div class="settings-box">
+                  <p class="section-label">Security</p>
+                  <h3>Password</h3>
+                  <p class="settings-text">
+                    Keep your account secure by updating your password regularly.
+                  </p>
+                  <button type="button" class="btn btn-primary small">Change Password</button>
+                </div>
+
+                <div class="settings-box">
+                  <p class="section-label">Preferences</p>
+                  <h3>Notifications</h3>
+                  <p class="settings-text">
+                    Manage alerts related to borrowed books, due dates, and profile activity.
+                  </p>
+                  <button type="button" class="btn btn-secondary small">Manage Alerts</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

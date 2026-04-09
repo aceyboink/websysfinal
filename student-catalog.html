@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Catalog - ShelfSnap</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+  <script src="global.js"></script>
+  <link rel="stylesheet" href="student-catalog.css" />
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div class="brand-text">
+          <h1>ShelfSnap</h1>
+          <p>Library Access in a Snap</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="student-dashboard.html" class="nav-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>DASHBOARD</span>
+        </a>
+
+        <a href="student-catalog.html" class="nav-item active">
+          <i class="fa-solid fa-book"></i>
+          <span>CATALOG</span>
+        </a>
+
+        <a href="student-borrow-materials.html" class="nav-item">
+          <i class="fa-solid fa-bookmark"></i>
+          <span>BORROW MATERIALS</span>
+        </a>
+
+        <a href="student-my-borrowed.html" class="nav-item">
+          <i class="fa-solid fa-folder-open"></i>
+          <span>MY BORROWED</span>
+        </a>
+
+        <a href="student-return.html" class="nav-item">
+          <i class="fa-solid fa-rotate-left"></i>
+          <span>RETURN</span>
+        </a>
+
+        <a href="student-borrow-history.html" class="nav-item">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>BORROW HISTORY</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="search-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search books, authors, or subject..."
+          />
+        </div>
+
+        <div class="top-icons">
+          <button class="icon-btn bell-btn" id="bellBtn" type="button">
+            <i class="fa-solid fa-bell"></i>
+            <span class="notif-badge" id="notifCount">3</span>
+          </button>
+
+          <button class="icon-btn profile-btn" id="profileBtn" type="button" aria-label="Open profile">
+  <span class="profile-thumb">
+    <i class="fa-solid fa-user"></i>
+  </span>
+</button>
+        </div>
+
+        <div class="notif-popup hidden" id="notifPopup">
+          <div class="notif-header">
+            <h3>Notifications</h3>
+            <button id="markAllReadBtn" type="button">Mark all as read</button>
+          </div>
+
+          <div class="notif-list">
+            <div class="notif-item unread">
+              <p><strong>New arrival:</strong> “Atomic Habits” is now available.</p>
+              <span>Apr 8, 2026</span>
+            </div>
+
+            <div class="notif-item unread">
+              <p><strong>Reminder:</strong> One of your borrowed materials is due soon.</p>
+              <span>Apr 7, 2026</span>
+            </div>
+
+            <div class="notif-item unread">
+              <p><strong>Update:</strong> New technology and science resources were added.</p>
+              <span>Apr 6, 2026</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content-area">
+        <section class="hero-panel">
+          <div class="hero-copy">
+            <p class="eyebrow">Personalized Library View</p>
+            <h2>For You</h2>
+            <p class="hero-description">
+              Explore recommended books and learning materials selected for your
+              academic needs, interests, and current library availability.
+            </p>
+          </div>
+
+          <div class="hero-badge">
+            <span>Curated Resources</span>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="filters-bar">
+            <select id="materialFilter">
+              <option value="all">Select Material</option>
+              <option value="book">Book</option>
+              <option value="magazines">Magazines</option>
+              <option value="newspapers">Newspapers</option>
+              <option value="journals">Journals</option>
+              <option value="ebooks">E-Books</option>
+              <option value="theses">Theses</option>
+              <option value="audio-visuals">Audio-Visuals</option>
+              <option value="reference-materials">Reference Materials</option>
+              <option value="comics">Comics</option>
+              <option value="government-publications">Government Publications</option>
+            </select>
+
+            <select id="categoryFilter">
+              <option value="all">Category</option>
+              <option value="fiction">Fiction</option>
+              <option value="non-fiction">Non-Fiction</option>
+              <option value="science-technology">Science &amp; Technology</option>
+              <option value="information-technology">Information Technology</option>
+              <option value="business-management">Business Management</option>
+              <option value="social-sciences">Social Sciences</option>
+              <option value="arts-humanities">Arts &amp; Humanities</option>
+              <option value="health-medicine">Health &amp; Medicine</option>
+              <option value="education">Education</option>
+              <option value="general-references">General References</option>
+            </select>
+
+            <div class="availability-toggle">
+              <span>Availability</span>
+              <label class="switch">
+                <input type="checkbox" id="availabilityFilter" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="catalog-grid" id="catalogGrid">
+            <div
+              class="book-card"
+              data-title="He's Into Her"
+              data-author="Maxinejiji"
+              data-category="fiction"
+              data-material="book"
+              data-status="available"
+              data-date="March 2014"
+              data-description="A popular young adult romance novel filled with humor, drama, and school-life moments."
+            >
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>He’s Into Her</h3>
+                <p>Maxinejiji</p>
+                <span class="status available">Available</span>
+              </div>
+              <button class="details-btn" type="button">View Details</button>
+            </div>
+
+            <div
+              class="book-card"
+              data-title="The Great Gatsby"
+              data-author="F. Scott Fitzgerald"
+              data-category="fiction"
+              data-material="book"
+              data-status="checked out"
+              data-date="April 1925"
+              data-description="A classic novel that explores wealth, love, and the American dream during the Jazz Age."
+            >
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>The Great Gatsby</h3>
+                <p>F. Scott Fitzgerald</p>
+                <span class="status checkedout">Checked Out</span>
+              </div>
+              <button class="details-btn" type="button">View Details</button>
+            </div>
+
+            <div
+              class="book-card"
+              data-title="Introduction to Computing"
+              data-author="John Smith"
+              data-category="information-technology"
+              data-material="book"
+              data-status="available"
+              data-date="June 2019"
+              data-description="A beginner-friendly material covering the fundamentals of computers, software, and digital systems."
+            >
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Introduction to Computing</h3>
+                <p>John Smith</p>
+                <span class="status available">Available</span>
+              </div>
+              <button class="details-btn" type="button">View Details</button>
+            </div>
+
+            <div
+              class="book-card"
+              data-title="General Biology"
+              data-author="Maria Santos"
+              data-category="science-technology"
+              data-material="journals"
+              data-status="available"
+              data-date="January 2021"
+              data-description="A scientific resource that discusses the foundations of life science, cells, heredity, and ecosystems."
+            >
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>General Biology</h3>
+                <p>Maria Santos</p>
+                <span class="status available">Available</span>
+              </div>
+              <button class="details-btn" type="button">View Details</button>
+            </div>
+
+            <div
+              class="book-card"
+              data-title="Teaching Strategies Today"
+              data-author="Angela Reyes"
+              data-category="education"
+              data-material="ebooks"
+              data-status="available"
+              data-date="August 2022"
+              data-description="A practical guide for modern teaching methods, student engagement, and classroom strategies."
+            >
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Teaching Strategies Today</h3>
+                <p>Angela Reyes</p>
+                <span class="status available">Available</span>
+              </div>
+              <button class="details-btn" type="button">View Details</button>
+            </div>
+
+            <div
+              class="book-card"
+              data-title="Modern Magazine"
+              data-author="Editorial Team"
+              data-category="arts-humanities"
+              data-material="magazines"
+              data-status="available"
+              data-date="February 2024"
+              data-description="A magazine collection featuring articles, stories, and current reads for students."
+            >
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Modern Magazine</h3>
+                <p>Editorial Team</p>
+                <span class="status available">Available</span>
+              </div>
+              <button class="details-btn" type="button">View Details</button>
+            </div>
+
+            <div
+              class="book-card"
+              data-title="Database Systems"
+              data-author="Ramon Cruz"
+              data-category="information-technology"
+              data-material="book"
+              data-status="checked out"
+              data-date="January 2020"
+              data-description="A comprehensive guide to relational databases, SQL, and database design principles."
+            >
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Database Systems</h3>
+                <p>Ramon Cruz</p>
+                <span class="status checkedout">Checked Out</span>
+              </div>
+              <button class="details-btn" type="button">View Details</button>
+            </div>
+
+            <div
+              class="book-card"
+              data-title="Physics Basics"
+              data-author="Leo Navarro"
+              data-category="science-technology"
+              data-material="book"
+              data-status="available"
+              data-date="May 2018"
+              data-description="An introductory book on motion, force, energy, and the basic laws of physics."
+            >
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Physics Basics</h3>
+                <p>Leo Navarro</p>
+                <span class="status available">Available</span>
+              </div>
+              <button class="details-btn" type="button">View Details</button>
+            </div>
+
+            <div
+              class="book-card"
+              data-title="Creative Writing"
+              data-author="Sofia Lim"
+              data-category="arts-humanities"
+              data-material="book"
+              data-status="available"
+              data-date="September 2021"
+              data-description="A helpful guide for students learning storytelling, poetry, and expressive writing."
+            >
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Creative Writing</h3>
+                <p>Sofia Lim</p>
+                <span class="status available">Available</span>
+              </div>
+              <button class="details-btn" type="button">View Details</button>
+            </div>
+
+            <div
+              class="book-card"
+              data-title="ShelfSnap User Guide"
+              data-author="System Admin"
+              data-category="information-technology"
+              data-material="ebooks"
+              data-status="available"
+              data-date="March 2026"
+              data-description="A user guide for navigating the ShelfSnap library system and its features."
+            >
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>ShelfSnap User Guide</h3>
+                <p>System Admin</p>
+                <span class="status available">Available</span>
+              </div>
+              <button class="details-btn" type="button">View Details</button>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="book-modal-overlay hidden" id="bookModalOverlay">
+    <div class="book-modal">
+      <button class="book-modal-close" id="closeBookModal" type="button">&times;</button>
+
+      <div class="book-modal-left">
+        <div class="book-modal-cover"></div>
+        <span class="book-modal-status" id="modalStatus">Available</span>
+        <button class="borrow-btn" id="borrowBtn" type="button">Borrow</button>
+      </div>
+
+      <div class="book-modal-right">
+        <div class="book-modal-top">
+          <div>
+            <p class="modal-label">Resource Details</p>
+            <h2 id="modalTitle">Book Title</h2>
+            <p class="modal-author" id="modalAuthor">Author Name</p>
+          </div>
+
+          <div class="modal-meta">
+            <p><span>Category</span><strong id="modalCategory">Category</strong></p>
+            <p><span>Material</span><strong id="modalMaterial">Material</strong></p>
+            <p><span>Published</span><strong id="modalDate">Date</strong></p>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <h4>Description</h4>
+          <p id="modalDescription">Book description here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-modal-overlay hidden" id="profileModalOverlay">
+  <div class="profile-modal">
+    <button class="profile-modal-close" id="closeProfileModal" type="button">&times;</button>
+
+    <div class="profile-modal-header">
+      <div>
+        <p class="section-label">Student Profile</p>
+        <h2>Manage your personal information</h2>
+        <p class="profile-modal-subtext">
+          Review and update your details without leaving the dashboard.
+        </p>
+      </div>
+
+      <div class="profile-mini-stats">
+        <div class="profile-mini-card">
+          <span>Profile Status</span>
+          <strong>Active</strong>
+        </div>
+        <div class="profile-mini-card">
+          <span>User Type</span>
+          <strong>Student</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-shell">
+      <div class="profile-tabs">
+        <button class="tab-btn active" data-tab="personal" type="button">Personal Information</button>
+        <button class="tab-btn" data-tab="account" type="button">Account Settings</button>
+      </div>
+
+      <div class="tab-panel active" id="personalTab">
+        <div class="profile-card">
+          <div class="profile-cover"></div>
+
+          <div class="profile-head">
+            <div class="profile-avatar">
+              <span class="avatar-inner">
+                <i class="fa-solid fa-user"></i>
+              </span>
+            </div>
+
+            <div class="profile-identity">
+              <h3>Dela Cruz, Juan S.</h3>
+              <p>juandelacruz@example.com</p>
+              <span class="profile-badge">Student Account</span>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <div class="section-heading">
+              <p class="section-label">Main Details</p>
+              <h3>Personal Information</h3>
+            </div>
+
+            <div class="form-grid">
+              <div class="input-group">
+                <label for="firstName">First Name</label>
+                <input id="firstName" type="text" value="Juan" />
+              </div>
+
+              <div class="input-group">
+                <label for="surname">Surname</label>
+                <input id="surname" type="text" value="Dela Cruz" />
+              </div>
+
+              <div class="input-group">
+                <label for="middleName">Middle Name</label>
+                <input id="middleName" type="text" value="Santos" />
+              </div>
+
+              <div class="input-group">
+                <label for="userType">User Type</label>
+                <input id="userType" type="text" value="Student" disabled />
+              </div>
+
+              <div class="input-group full">
+                <label for="email">Email Address</label>
+                <input id="email" type="email" value="juandelacruz@example.com" />
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-actions">
+            <button type="button" class="btn btn-secondary" id="cancelProfileBtn">Cancel</button>
+            <button type="button" class="btn btn-primary">Save Changes</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="accountTab">
+        <div class="profile-card">
+          <div class="settings-grid">
+            <div class="settings-box">
+              <p class="section-label">Security</p>
+              <h3>Password</h3>
+              <p class="settings-text">
+                Keep your account secure by updating your password regularly.
+              </p>
+              <button type="button" class="btn btn-primary small">Change Password</button>
+            </div>
+
+            <div class="settings-box">
+              <p class="section-label">Preferences</p>
+              <h3>Notifications</h3>
+              <p class="settings-text">
+                Manage alerts related to borrowed books, due dates, and profile activity.
+              </p>
+              <button type="button" class="btn btn-secondary small">Manage Alerts</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="student-catalog.js"></script>
+</body>
+</html>

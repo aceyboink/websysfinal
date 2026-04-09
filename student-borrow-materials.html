@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Borrow Materials - ShelfSnap</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+  <script src="global.js"></script>
+  <link rel="stylesheet" href="student-borrow-materials.css" />
+  <script defer src="student-borrow-materials.js"></script>
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div class="brand-text">
+          <h1>ShelfSnap</h1>
+          <p>Library Access in a Snap</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="student-dashboard.html" class="nav-item">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>DASHBOARD</span>
+        </a>
+
+        <a href="student-catalog.html" class="nav-item">
+          <i class="fa-solid fa-book"></i>
+          <span>CATALOG</span>
+        </a>
+
+        <a href="student-borrow-materials.html" class="nav-item active">
+          <i class="fa-solid fa-bookmark"></i>
+          <span>BORROW MATERIALS</span>
+        </a>
+
+        <a href="student-my-borrowed.html" class="nav-item">
+          <i class="fa-solid fa-folder-open"></i>
+          <span>MY BORROWED</span>
+        </a>
+
+        <a href="student-return.html" class="nav-item">
+          <i class="fa-solid fa-rotate-left"></i>
+          <span>RETURN</span>
+        </a>
+
+        <a href="student-borrow-history.html" class="nav-item">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>BORROW HISTORY</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="search-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search books, authors, category, or genre..."
+          />
+        </div>
+
+        <div class="top-icons">
+          <button class="icon-btn" id="bellBtn" type="button" aria-label="Notifications">
+            <i class="fa-solid fa-bell"></i>
+            <span class="notif-badge" id="notifCount">3</span>
+          </button>
+
+          <div class="profile-wrapper">
+            <button class="icon-btn profile-btn" id="profileBtn" type="button" aria-label="Open profile">
+              <span class="profile-thumb">
+                <i class="fa-solid fa-user"></i>
+              </span>
+            </button>
+
+            <div class="profile-popup hidden" id="profilePopup">
+              <div class="profile-popup-header">
+                <div class="profile-avatar-small">
+                  <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="profile-popup-user">
+                  <h3>Dela Cruz, Juan S.</h3>
+                  <p>juandelacruz@example.com</p>
+                </div>
+              </div>
+
+              <div class="profile-popup-body">
+                <div class="info-row">
+                  <span>Student No.</span>
+                  <strong>2024-00125</strong>
+                </div>
+                <div class="info-row">
+                  <span>Program</span>
+                  <strong>BS Information Technology</strong>
+                </div>
+                <div class="info-row">
+                  <span>Status</span>
+                  <strong class="status-active">Active</strong>
+                </div>
+              </div>
+
+              <div class="profile-popup-actions">
+                <a href="student-profile.html" class="popup-link">View Profile</a>
+                <a href="index.html" class="popup-link logout-link">Log Out</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notif-popup hidden" id="notifPopup">
+          <div class="notif-header">
+            <h3>Notifications</h3>
+            <button id="markAllReadBtn" type="button">Mark all as read</button>
+          </div>
+
+          <div class="notif-list">
+            <div class="notif-item unread">
+              <p>Your borrow request was submitted successfully.</p>
+              <span>Today</span>
+            </div>
+
+            <div class="notif-item unread">
+              <p>Your request is awaiting librarian approval.</p>
+              <span>Today</span>
+            </div>
+
+            <div class="notif-item unread">
+              <p>One material is ready for pickup.</p>
+              <span>Today</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content-area">
+        <section class="hero-panel">
+          <div class="hero-copy">
+            <p class="eyebrow">Borrow Materials</p>
+            <h2>Find & Borrow Resources</h2>
+            <p class="hero-description">
+              Browse available materials, review item details, scan QR codes, and submit
+              borrowing requests in one clean workspace.
+            </p>
+          </div>
+
+          <div class="hero-actions">
+            <button class="scan-btn" id="openQrBtn" type="button">
+              <i class="fa-solid fa-qrcode"></i>
+              <span>Scan Barcode</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header section-header-stack">
+            <div>
+              <p class="section-label">Library Collection</p>
+              <h2>Available Materials</h2>
+            </div>
+
+            <div class="filter-row">
+              <select class="filter-control" id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="fiction">Fiction</option>
+                <option value="technology">Technology</option>
+                <option value="programming">Programming</option>
+                <option value="romance">Romance</option>
+                <option value="finance">Finance</option>
+                <option value="self-help">Self-Help</option>
+              </select>
+
+              <select class="filter-control" id="genreFilter">
+                <option value="all">All Genres</option>
+                <option value="academic">Academic</option>
+                <option value="young-adult">Young Adult</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="reference">Reference</option>
+              </select>
+
+              <label class="availability-filter">
+                <span>Availability</span>
+                <input type="checkbox" id="availableOnlyToggle" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="books-row" id="bookGrid">
+            <div class="book-card" data-title="He's Into Her" data-author="Maxinejiji" data-category="fiction" data-genre="young-adult" data-status="available" data-id="mtrl-001" data-due="April 6, 2026">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>He’s Into Her</h3>
+                <p>Maxinejiji</p>
+                <div class="book-meta">
+                  <span class="chip">Young Adult</span>
+                  <span class="chip">Fiction</span>
+                </div>
+                <span class="status available">Available</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button">Add to Borrow</button>
+              </div>
+            </div>
+
+            <div class="book-card" data-title="Database Systems" data-author="Author Name" data-category="technology" data-genre="academic" data-status="available" data-id="mtrl-002" data-due="April 6, 2026">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Database Systems</h3>
+                <p>Author Name</p>
+                <div class="book-meta">
+                  <span class="chip">Academic</span>
+                  <span class="chip">Technology</span>
+                </div>
+                <span class="status available">Available</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button">Add to Borrow</button>
+              </div>
+            </div>
+
+            <div class="book-card" data-title="Introduction to Java" data-author="J. Programmer" data-category="programming" data-genre="reference" data-status="checked-out" data-id="mtrl-003" data-due="Unavailable">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Introduction to Java</h3>
+                <p>J. Programmer</p>
+                <div class="book-meta">
+                  <span class="chip">Reference</span>
+                  <span class="chip">Programming</span>
+                </div>
+                <span class="status checked-out">Checked Out</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button" disabled>Add to Borrow</button>
+              </div>
+            </div>
+
+            <div class="book-card" data-title="Harry Potter" data-author="J.K. Rowling" data-category="fiction" data-genre="fantasy" data-status="available" data-id="mtrl-004" data-due="April 6, 2026">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Harry Potter</h3>
+                <p>J.K. Rowling</p>
+                <div class="book-meta">
+                  <span class="chip">Fantasy</span>
+                  <span class="chip">Fiction</span>
+                </div>
+                <span class="status available">Available</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button">Add to Borrow</button>
+              </div>
+            </div>
+
+            <div class="book-card" data-title="Clean Code" data-author="Robert C. Martin" data-category="programming" data-genre="reference" data-status="available" data-id="mtrl-005" data-due="April 6, 2026">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Clean Code</h3>
+                <p>Robert C. Martin</p>
+                <div class="book-meta">
+                  <span class="chip">Programming</span>
+                  <span class="chip">Best Practice</span>
+                </div>
+                <span class="status available">Available</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button">Add to Borrow</button>
+              </div>
+            </div>
+
+            <div class="book-card" data-title="Artificial Intelligence Basics" data-author="Tom Taulli" data-category="technology" data-genre="academic" data-status="available" data-id="mtrl-006" data-due="April 6, 2026">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Artificial Intelligence Basics</h3>
+                <p>Tom Taulli</p>
+                <div class="book-meta">
+                  <span class="chip">AI</span>
+                  <span class="chip">Technology</span>
+                </div>
+                <span class="status available">Available</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button">Add to Borrow</button>
+              </div>
+            </div>
+
+            <div class="book-card" data-title="Atomic Habits" data-author="James Clear" data-category="self-help" data-genre="reference" data-status="available" data-id="mtrl-007" data-due="April 6, 2026">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Atomic Habits</h3>
+                <p>James Clear</p>
+                <div class="book-meta">
+                  <span class="chip">Self-Help</span>
+                  <span class="chip">Productivity</span>
+                </div>
+                <span class="status available">Available</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button">Add to Borrow</button>
+              </div>
+            </div>
+
+            <div class="book-card" data-title="Rich Dad Poor Dad" data-author="Robert Kiyosaki" data-category="finance" data-genre="reference" data-status="available" data-id="mtrl-008" data-due="April 6, 2026">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Rich Dad Poor Dad</h3>
+                <p>Robert Kiyosaki</p>
+                <div class="book-meta">
+                  <span class="chip">Finance</span>
+                  <span class="chip">Business</span>
+                </div>
+                <span class="status available">Available</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button">Add to Borrow</button>
+              </div>
+            </div>
+
+            <div class="book-card" data-title="The Great Gatsby" data-author="F. Scott Fitzgerald" data-category="fiction" data-genre="reference" data-status="available" data-id="mtrl-009" data-due="April 6, 2026">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>The Great Gatsby</h3>
+                <p>F. Scott Fitzgerald</p>
+                <div class="book-meta">
+                  <span class="chip">Classic</span>
+                  <span class="chip">Fiction</span>
+                </div>
+                <span class="status available">Available</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button">Add to Borrow</button>
+              </div>
+            </div>
+
+            <div class="book-card" data-title="To Kill a Mockingbird" data-author="Harper Lee" data-category="fiction" data-genre="reference" data-status="available" data-id="mtrl-010" data-due="April 6, 2026">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>To Kill a Mockingbird</h3>
+                <p>Harper Lee</p>
+                <div class="book-meta">
+                  <span class="chip">Classic</span>
+                  <span class="chip">Drama</span>
+                </div>
+                <span class="status available">Available</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button">Add to Borrow</button>
+              </div>
+            </div>
+
+            <div class="book-card" data-title="The Hobbit" data-author="J.R.R. Tolkien" data-category="fiction" data-genre="fantasy" data-status="available" data-id="mtrl-011" data-due="April 6, 2026">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>The Hobbit</h3>
+                <p>J.R.R. Tolkien</p>
+                <div class="book-meta">
+                  <span class="chip">Fantasy</span>
+                  <span class="chip">Adventure</span>
+                </div>
+                <span class="status available">Available</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button">Add to Borrow</button>
+              </div>
+            </div>
+
+            <div class="book-card" data-title="Data Structures and Algorithms" data-author="Mark Allen Weiss" data-category="programming" data-genre="academic" data-status="available" data-id="mtrl-012" data-due="April 6, 2026">
+              <div class="book-cover"></div>
+              <div class="book-info">
+                <h3>Data Structures and Algorithms</h3>
+                <p>Mark Allen Weiss</p>
+                <div class="book-meta">
+                  <span class="chip">Programming</span>
+                  <span class="chip">Academic</span>
+                </div>
+                <span class="status available">Available</span>
+              </div>
+              <div class="book-actions">
+                <button class="card-btn secondary view-details-btn" type="button">View Details</button>
+                <button class="card-btn primary add-borrow-btn" type="button">Add to Borrow</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="empty-state hidden" id="emptyState">
+            <i class="fa-regular fa-folder-open"></i>
+            <p>No materials matched your search or filters.</p>
+          </div>
+        </section>
+
+        <section class="selection-panel" id="selectionPanel">
+          <div class="selection-header">
+            <div>
+              <p class="section-label">Borrow Request</p>
+              <h2>Selected for Borrowing</h2>
+            </div>
+            <span class="selection-count" id="selectedCountBadge">0 selected</span>
+          </div>
+
+          <p class="selection-description">
+            The following books are selected for borrowing. Once your request is submitted,
+            the library staff will review your request and approve accordingly.
+          </p>
+
+          <div class="selected-list" id="selectedList">
+            <div class="selected-empty" id="selectedEmpty">
+              <i class="fa-regular fa-bookmark"></i>
+              <p> No selected materials yet.</p>
+            </div>
+          </div>
+
+          <p class="request-note hidden" id="requestNote">
+            Your borrow request is successfully submitted.
+          </p>
+
+          <button class="process-request-btn" id="processBtn" type="button" disabled>
+            PROCESS BORROW REQUEST (<span id="requestCount">0</span> ITEMS)
+          </button>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="popup-overlay hidden" id="detailsOverlay">
+    <div class="popup-card details-popup">
+      <button class="popup-close" type="button" data-close="detailsOverlay">&times;</button>
+
+      <div class="details-layout">
+        <div class="details-cover"></div>
+
+        <div class="details-content">
+          <p class="section-label">Material Details</p>
+          <h3 id="detailsTitle">Book Title</h3>
+          <p class="details-author" id="detailsAuthor">Author Name</p>
+
+          <div class="details-grid">
+            <div class="details-box">
+              <span>Material ID</span>
+              <strong id="detailsId">mtrl-001</strong>
+            </div>
+            <div class="details-box">
+              <span>Status</span>
+              <strong id="detailsStatus">Available</strong>
+            </div>
+            <div class="details-box">
+              <span>Category</span>
+              <strong id="detailsCategory">Fiction</strong>
+            </div>
+            <div class="details-box">
+              <span>Genre</span>
+              <strong id="detailsGenre">Young Adult</strong>
+            </div>
+          </div>
+
+          <p class="details-description">
+            This material is available for student borrowing. Please review the borrowing
+            terms before submitting your request.
+          </p>
+
+          <div class="popup-actions">
+            <button class="popup-btn secondary" type="button" data-close="detailsOverlay">Close</button>
+            <button class="popup-btn primary" type="button" id="detailsAddBtn">Add to Borrow</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-overlay hidden" id="requestSentOverlay">
+    <div class="popup-card status-popup">
+      <button class="popup-close" type="button" data-close="requestSentOverlay">&times;</button>
+
+      <div class="popup-status-icon waiting">
+        <i class="fa-regular fa-paper-plane"></i>
+      </div>
+
+      <h3>Request Sent Successfully!</h3>
+      <div class="popup-copy">
+        <p>Your request for the selected materials has been sent.</p>
+        <p><strong>Pickup Status:</strong> Pending Librarian Approval.</p>
+        <p class="popup-note">
+          Please wait for the approval notification before visiting the circulation desk.
+        </p>
+      </div>
+
+      <div class="popup-actions vertical">
+        <a href="student-dashboard.html" class="popup-link-btn">BACK TO DASHBOARD</a>
+        <a href="student-my-borrowed.html" class="popup-text-link">VIEW MY BORROWED</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-overlay hidden" id="approvedOverlay">
+    <div class="popup-card status-popup">
+      <button class="popup-close" type="button" data-close="approvedOverlay">&times;</button>
+
+      <div class="popup-status-icon success">
+        <i class="fa-solid fa-check"></i>
+      </div>
+
+      <h3>Request Approved</h3>
+      <div class="popup-copy">
+        <p>Your selected materials are now approved for pickup.</p>
+        <p><strong>Pickup Status:</strong> Ready for pickup.</p>
+        <p><strong>Borrow Duration:</strong> 7 days</p>
+        <p><strong>Return Date:</strong> April 6, 2026</p>
+      </div>
+
+      <div class="popup-actions vertical">
+        <a href="student-dashboard.html" class="popup-link-btn">BACK TO DASHBOARD</a>
+        <a href="student-my-borrowed.html" class="popup-text-link">VIEW MY BORROWED</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-overlay hidden" id="qrOverlay">
+    <div class="popup-card qr-popup">
+      <button class="popup-close" type="button" data-close="qrOverlay">&times;</button>
+
+      <h3>QR Reader</h3>
+      <div class="qr-reader-box">
+        <i class="fa-solid fa-qrcode"></i>
+      </div>
+      <p>Scan a QR code to find it in the system.</p>
+    </div>
+  </div>
+
+  <div class="approval-toast hidden" id="approvalToast">
+    <div class="toast-top">
+      <span>BORROW REQUEST APPROVED</span>
+      <button type="button" id="closeToastBtn">&times;</button>
+    </div>
+    <p>Your borrow request has been approved. Click for more details.</p>
+  </div>
+</body>
+</html>

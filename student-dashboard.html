@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShelfSnap - Student Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+  <script src="global.js"></script>
+  <link rel="stylesheet" href="student-dashboard.css" />
+  <script defer src="student-dashboard.js"></script>
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div class="brand-text">
+          <h1>ShelfSnap</h1>
+          <p>Library Access in a Snap</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="student-dashboard.html" class="nav-item active">
+          <i class="fa-solid fa-table-columns"></i>
+          <span>DASHBOARD</span>
+        </a>
+
+        <a href="student-catalog.html" class="nav-item">
+          <i class="fa-solid fa-book"></i>
+          <span>CATALOG</span>
+        </a>
+
+        <a href="student-borrow-materials.html" class="nav-item">
+          <i class="fa-solid fa-bookmark"></i>
+          <span>BORROW MATERIALS</span>
+        </a>
+
+        <a href="student-my-borrowed.html" class="nav-item">
+          <i class="fa-solid fa-folder-open"></i>
+          <span>MY BORROWED</span>
+        </a>
+
+        <a href="student-return.html" class="nav-item">
+          <i class="fa-solid fa-rotate-left"></i>
+          <span>RETURN</span>
+        </a>
+
+        <a href="student-borrow-history.html" class="nav-item">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>BORROW HISTORY</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="search-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search books, authors, or subject..."
+          />
+        </div>
+
+        <div class="top-icons">
+          <button class="icon-btn bell-btn" id="bellBtn" type="button">
+            <i class="fa-solid fa-bell"></i>
+            <span class="notif-badge" id="notifCount">3</span>
+          </button>
+
+          <button class="icon-btn profile-btn" id="profileBtn" type="button" aria-label="Open profile">
+            <span class="profile-thumb">
+              <i class="fa-solid fa-user"></i>
+            </span>
+          </button>
+        </div>
+
+        <div class="notif-popup hidden" id="notifPopup">
+          <div class="notif-header">
+            <h3>Notifications</h3>
+            <button id="markAllReadBtn" type="button">Mark all as read</button>
+          </div>
+
+          <div class="notif-list">
+            <div class="notif-item unread">
+              <p>You successfully borrowed a book. Please return it by 2026-04-02.</p>
+              <span>Mar 20, 2026</span>
+            </div>
+
+            <div class="notif-item unread">
+              <p>Your requested material is now available for pickup.</p>
+              <span>Mar 19, 2026</span>
+            </div>
+
+            <div class="notif-item unread">
+              <p>Reminder: 1 borrowed book is due tomorrow.</p>
+              <span>Mar 18, 2026</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content-area">
+        <section class="hero-panel">
+          <div class="hero-copy">
+            <p class="eyebrow">Student Dashboard</p>
+            <h2>Welcome Back</h2>
+            <p class="hero-description">
+              Access your current books, discover new resources, and monitor your
+              borrowing activity from one organized workspace.
+            </p>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-card">
+              <span>Borrowed</span>
+              <strong>3</strong>
+            </div>
+            <div class="stat-card">
+              <span>Due Soon</span>
+              <strong>1</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div>
+              <p class="section-label">Your Resources</p>
+              <h2>My Books</h2>
+            </div>
+          </div>
+
+          <div class="books-row">
+            <div class="book-card"
+              data-title="He’s Into Her"
+              data-author="Maxinejiji"
+              data-genre="Romance"
+              data-date="March 2014"
+              data-status="Available"
+              data-synopsis="In his last year of high school, Deib Lohr Enrile vows to change his bullying ways for the girl he likes. But when he crosses paths with BIS transferee Maxpein Zin del Valle, everything changes.">
+              <div class="book-cover cover-1"></div>
+              <div class="book-info">
+                <h3>He’s Into Her</h3>
+                <p>Maxinejiji</p>
+                <span class="status available">Available</span>
+              </div>
+            </div>
+
+            <div class="book-card"
+              data-title="Atomic Habits"
+              data-author="James Clear"
+              data-genre="Self-help"
+              data-date="October 2018"
+              data-status="Available"
+              data-synopsis="Atomic Habits explains how small daily improvements and systems can lead to remarkable long-term results.">
+              <div class="book-cover cover-2"></div>
+              <div class="book-info">
+                <h3>Atomic Habits</h3>
+                <p>James Clear</p>
+                <span class="status available">Available</span>
+              </div>
+            </div>
+
+            <div class="book-card"
+              data-title="Java Basics"
+              data-author="John Smith"
+              data-genre="Programming"
+              data-date="June 2019"
+              data-status="Checked Out"
+              data-synopsis="An introductory guide to Java programming, covering syntax, object-oriented programming, and problem solving.">
+              <div class="book-cover cover-3"></div>
+              <div class="book-info">
+                <h3>Java Basics</h3>
+                <p>John Smith</p>
+                <span class="status checkedout">Checked Out</span>
+              </div>
+            </div>
+
+            <div class="book-card"
+              data-title="Database Systems"
+              data-author="Maria Lopez"
+              data-genre="Technology"
+              data-date="January 2020"
+              data-status="Available"
+              data-synopsis="A practical book on database concepts, normalization, SQL, and system design for students and beginners.">
+              <div class="book-cover cover-4"></div>
+              <div class="book-info">
+                <h3>Database Systems</h3>
+                <p>Maria Lopez</p>
+                <span class="status available">Available</span>
+              </div>
+            </div>
+
+            <div class="book-card"
+              data-title="Web Development"
+              data-author="Jane Miller"
+              data-genre="Technology"
+              data-date="August 2021"
+              data-status="Available"
+              data-synopsis="Covers HTML, CSS, JavaScript, and the core principles of building modern responsive web applications.">
+              <div class="book-cover cover-5"></div>
+              <div class="book-info">
+                <h3>Web Development</h3>
+                <p>Jane Miller</p>
+                <span class="status available">Available</span>
+              </div>
+            </div>
+
+            <div class="book-card"
+              data-title="UI Design"
+              data-author="Carlo Reyes"
+              data-genre="Design"
+              data-date="November 2022"
+              data-status="Available"
+              data-synopsis="A student-friendly guide to user interface principles, wireframing, layouts, spacing, and visual hierarchy.">
+              <div class="book-cover cover-6"></div>
+              <div class="book-info">
+                <h3>UI Design</h3>
+                <p>Carlo Reyes</p>
+                <span class="status available">Available</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div>
+              <p class="section-label">Discover More</p>
+              <h2>Catalog Highlights</h2>
+            </div>
+          </div>
+
+          <div class="books-row">
+            <div class="book-card"
+              data-title="Networking 101"
+              data-author="Robert Miles"
+              data-genre="Technology"
+              data-date="May 2017"
+              data-status="Available"
+              data-synopsis="Introduces students to networking basics such as IP addressing, routing, switching, and common protocols.">
+              <div class="book-cover cover-7"></div>
+              <div class="book-info">
+                <h3>Networking 101</h3>
+                <p>Robert Miles</p>
+                <span class="status available">Available</span>
+              </div>
+            </div>
+
+            <div class="book-card"
+              data-title="Web Design"
+              data-author="Anna Cruz"
+              data-genre="Design"
+              data-date="September 2020"
+              data-status="Available"
+              data-synopsis="A visual and practical guide to web layout, typography, color, and responsive interface design.">
+              <div class="book-cover cover-8"></div>
+              <div class="book-info">
+                <h3>Web Design</h3>
+                <p>Anna Cruz</p>
+                <span class="status available">Available</span>
+              </div>
+            </div>
+
+            <div class="book-card"
+              data-title="Operating Systems"
+              data-author="Brian Hall"
+              data-genre="Technology"
+              data-date="April 2018"
+              data-status="Checked Out"
+              data-synopsis="Explains processes, memory, file systems, scheduling, and the basic concepts behind operating systems.">
+              <div class="book-cover cover-9"></div>
+              <div class="book-info">
+                <h3>Operating Systems</h3>
+                <p>Brian Hall</p>
+                <span class="status checkedout">Checked Out</span>
+              </div>
+            </div>
+
+            <div class="book-card"
+              data-title="Software Engineering"
+              data-author="Kevin Tan"
+              data-genre="Technology"
+              data-date="February 2021"
+              data-status="Available"
+              data-synopsis="Focuses on software development life cycle, documentation, testing, teamwork, and project planning.">
+              <div class="book-cover cover-10"></div>
+              <div class="book-info">
+                <h3>Software Engineering</h3>
+                <p>Kevin Tan</p>
+                <span class="status available">Available</span>
+              </div>
+            </div>
+
+            <div class="book-card"
+              data-title="Data Structures"
+              data-author="Leo Santos"
+              data-genre="Programming"
+              data-date="July 2019"
+              data-status="Available"
+              data-synopsis="A foundational book covering arrays, linked lists, stacks, queues, trees, and algorithms.">
+              <div class="book-cover cover-11"></div>
+              <div class="book-info">
+                <h3>Data Structures</h3>
+                <p>Leo Santos</p>
+                <span class="status available">Available</span>
+              </div>
+            </div>
+
+            <div class="book-card"
+              data-title="Data Analytics"
+              data-author="Anne Santos"
+              data-genre="Technology"
+              data-date="December 2023"
+              data-status="Available"
+              data-synopsis="Introduces data analysis concepts, interpretation, visualization, and practical data-driven decision making.">
+              <div class="book-cover cover-12"></div>
+              <div class="book-info">
+                <h3>Data Analytics</h3>
+                <p>Anne Santos</p>
+                <span class="status available">Available</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div id="analyticsTrigger" class="analytics-trigger"></div>
+
+        <section class="analytics-section" id="analyticsSection">
+          <div class="section-header">
+            <div>
+              <p class="section-label">Insights</p>
+              <h2>Borrowing Trends &amp; Analytics</h2>
+            </div>
+          </div>
+
+          <div class="analytics-grid">
+            <article class="analytics-card analytics-card-wide">
+              <div class="analytics-card-head">
+                <div>
+                  <p class="analytics-kicker">Overview</p>
+                  <h3>My Borrowing Activity</h3>
+                </div>
+                <span class="analytics-chip">This Month</span>
+              </div>
+
+              <p class="analytics-text">
+                Your borrowing activity is focused on academic and skill-building materials,
+                with strong interest in programming, technology, and design resources.
+              </p>
+
+              <div class="mini-stats">
+                <div class="mini-stat">
+                  <strong>6</strong>
+                  <span>Total Borrowed</span>
+                </div>
+                <div class="mini-stat">
+                  <strong>2</strong>
+                  <span>Returned</span>
+                </div>
+                <div class="mini-stat">
+                  <strong>1</strong>
+                  <span>Due Soon</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="analytics-card">
+              <div class="analytics-card-head">
+                <div>
+                  <p class="analytics-kicker">Chart View</p>
+                  <h3>Borrowing Activity Chart</h3>
+                </div>
+              </div>
+
+              <div class="bar-chart">
+                <div class="bar-group">
+                  <div class="bar bar-jan"></div>
+                  <span>Jan</span>
+                </div>
+                <div class="bar-group">
+                  <div class="bar bar-feb"></div>
+                  <span>Feb</span>
+                </div>
+                <div class="bar-group">
+                  <div class="bar bar-mar"></div>
+                  <span>Mar</span>
+                </div>
+                <div class="bar-group">
+                  <div class="bar bar-apr"></div>
+                  <span>Apr</span>
+                </div>
+                <div class="bar-group">
+                  <div class="bar bar-may"></div>
+                  <span>May</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="analytics-card">
+              <div class="analytics-card-head">
+                <div>
+                  <p class="analytics-kicker">Most Popular Genres</p>
+                  <h3>Genre Distribution</h3>
+                </div>
+              </div>
+
+              <div class="genre-chart-wrap">
+                <div class="donut-chart">
+                  <div class="donut-center">
+                    <strong>82%</strong>
+                    <span>Tech</span>
+                  </div>
+                </div>
+
+                <div class="genre-legend">
+                  <div class="legend-item">
+                    <span class="legend-dot dot-tech"></span>
+                    <p>Technology</p>
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-dot dot-prog"></span>
+                    <p>Programming</p>
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-dot dot-design"></span>
+                    <p>Design</p>
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-dot dot-self"></span>
+                    <p>Self-help</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="analytics-card">
+              <div class="analytics-card-head">
+                <div>
+                  <p class="analytics-kicker">Top Picks</p>
+                  <h3>Top 5 Popular Books</h3>
+                </div>
+              </div>
+
+              <ol class="rank-list">
+                <li><span>Atomic Habits</span><strong>124</strong></li>
+                <li><span>Web Development</span><strong>117</strong></li>
+                <li><span>Data Structures</span><strong>102</strong></li>
+                <li><span>Software Engineering</span><strong>96</strong></li>
+                <li><span>Java Basics</span><strong>89</strong></li>
+              </ol>
+            </article>
+
+            <article class="analytics-card analytics-card-wide">
+              <div class="analytics-card-head">
+                <div>
+                  <p class="analytics-kicker">Live Interest</p>
+                  <h3>Trending Today</h3>
+                </div>
+                <span class="analytics-chip soft">Updated</span>
+              </div>
+
+              <div class="trending-list">
+                <div class="trending-item">
+                  <i class="fa-solid fa-arrow-trend-up"></i>
+                  <div>
+                    <strong>Database Systems</strong>
+                    <p>High demand among IT students this week.</p>
+                  </div>
+                </div>
+
+                <div class="trending-item">
+                  <i class="fa-solid fa-fire-flame-curved"></i>
+                  <div>
+                    <strong>UI Design</strong>
+                    <p>Frequently viewed for interface and wireframing subjects.</p>
+                  </div>
+                </div>
+
+                <div class="trending-item">
+                  <i class="fa-solid fa-bolt"></i>
+                  <div>
+                    <strong>Networking 101</strong>
+                    <p>Popular choice for review and lab preparation.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="book-modal-overlay hidden" id="bookModalOverlay">
+    <div class="book-modal">
+      <button class="book-modal-close" id="closeBookModal" type="button">&times;</button>
+
+      <div class="book-modal-left">
+        <div class="book-modal-cover" id="modalCover"></div>
+        <span class="book-modal-status" id="modalStatus">Available</span>
+      </div>
+
+      <div class="book-modal-right">
+        <div class="book-modal-top">
+          <div>
+            <p class="modal-label">Resource Details</p>
+            <h2 id="modalTitle">He’s Into Her</h2>
+            <p class="modal-author" id="modalAuthor">Maxinejiji</p>
+          </div>
+
+          <div class="modal-meta">
+            <p>
+              <span>Genre</span>
+              <strong id="modalGenre">Romance</strong>
+            </p>
+            <p>
+              <span>Published</span>
+              <strong id="modalDate">March 2014</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <h4>Synopsis</h4>
+          <p id="modalSynopsis">Book description here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-modal-overlay hidden" id="profileModalOverlay">
+    <div class="profile-modal">
+      <button class="profile-modal-close" id="closeProfileModal" type="button">&times;</button>
+
+      <div class="profile-modal-header">
+        <div>
+          <p class="section-label">Student Profile</p>
+          <h2>Manage your personal information</h2>
+          <p class="profile-modal-subtext">
+            Review and update your details without leaving the dashboard.
+          </p>
+        </div>
+
+        <div class="profile-mini-stats">
+          <div class="profile-mini-card">
+            <span>Profile Status</span>
+            <strong>Active</strong>
+          </div>
+          <div class="profile-mini-card">
+            <span>User Type</span>
+            <strong>Student</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-shell">
+        <div class="profile-tabs">
+          <button class="tab-btn active" data-tab="personal" type="button">Personal Information</button>
+          <button class="tab-btn" data-tab="account" type="button">Account Settings</button>
+        </div>
+
+        <div class="tab-panel active" id="personalTab">
+          <div class="profile-card">
+            <div class="profile-cover"></div>
+
+            <div class="profile-head">
+              <div class="profile-avatar">
+                <span class="avatar-inner">
+                  <i class="fa-solid fa-user"></i>
+                </span>
+              </div>
+
+              <div class="profile-identity">
+                <h3>Dela Cruz, Juan S.</h3>
+                <p>juandelacruz@example.com</p>
+                <span class="profile-badge">Student Account</span>
+              </div>
+            </div>
+
+            <div class="profile-section">
+              <div class="section-heading">
+                <p class="section-label">Main Details</p>
+                <h3>Personal Information</h3>
+              </div>
+
+              <div class="form-grid">
+                <div class="input-group">
+                  <label for="firstName">First Name</label>
+                  <input id="firstName" type="text" value="Juan" />
+                </div>
+
+                <div class="input-group">
+                  <label for="surname">Surname</label>
+                  <input id="surname" type="text" value="Dela Cruz" />
+                </div>
+
+                <div class="input-group">
+                  <label for="middleName">Middle Name</label>
+                  <input id="middleName" type="text" value="Santos" />
+                </div>
+
+                <div class="input-group">
+                  <label for="userType">User Type</label>
+                  <input id="userType" type="text" value="Student" disabled />
+                </div>
+
+                <div class="input-group full">
+                  <label for="email">Email Address</label>
+                  <input id="email" type="email" value="juandelacruz@example.com" />
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-actions">
+              <button type="button" class="btn btn-secondary" id="cancelProfileBtn">Cancel</button>
+              <button type="button" class="btn btn-primary">Save Changes</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="accountTab">
+          <div class="profile-card">
+            <div class="settings-grid">
+              <div class="settings-box">
+                <p class="section-label">Security</p>
+                <h3>Password</h3>
+                <p class="settings-text">
+                  Keep your account secure by updating your password regularly.
+                </p>
+                <button type="button" class="btn btn-primary small">Change Password</button>
+              </div>
+
+              <div class="settings-box">
+                <p class="section-label">Preferences</p>
+                <h3>Notifications</h3>
+                <p class="settings-text">
+                  Manage alerts related to borrowed books, due dates, and profile activity.
+                </p>
+                <button type="button" class="btn btn-secondary small">Manage Alerts</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

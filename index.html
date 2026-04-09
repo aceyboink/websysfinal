@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShelfSnap</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- LANDING PAGE -->
+  <section class="page active" id="landingPage">
+    <div class="overlay"></div>
+
+    <div class="landing-shell">
+      <div class="brand-badge">SS</div>
+
+      <h1 class="brand-title">ShelfSnap</h1>
+      <p class="brand-subtitle">library access in a snap</p>
+
+      <div class="landing-actions">
+        <button type="button" class="primary-btn" onclick="showPage('loginPage')">Log In</button>
+        <button type="button" class="secondary-btn" onclick="showPage('signupPage')">Sign Up</button>
+      </div>
+
+      <a href="#" class="guest-link">Browse as Guest</a>
+    </div>
+  </section>
+
+  <!-- LOGIN PAGE -->
+  <section class="page" id="loginPage">
+    <div class="overlay"></div>
+
+    <div class="auth-page">
+      <a href="#" class="back-link" onclick="showPage('landingPage'); return false;">&#8592;</a>
+
+      <div class="auth-brand">
+        <span class="auth-brand-label">Library Management Portal</span>
+        <h1>ShelfSnap</h1>
+        <p>Sign in to continue to your account</p>
+      </div>
+
+      <div class="auth-card login-card">
+        <div class="card-header">
+          <h2>Welcome Back</h2>
+          <p>Access your library dashboard securely.</p>
+        </div>
+
+        <form class="auth-form" onsubmit="checkLogin(event)">
+          <div class="input-group">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" placeholder="Enter your email" required />
+          </div>
+
+          <div class="input-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter your password" required />
+          </div>
+
+          <div id="loginError" class="error-message">Invalid email or password.</div>
+
+          <div class="form-row">
+            <label class="checkbox-inline">
+              <input type="checkbox" id="rememberMe" />
+              <span>Remember me</span>
+            </label>
+
+            <a href="#" class="text-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="submit-btn">Log In</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNUP PAGE -->
+  <section class="page" id="signupPage">
+    <div class="signup-layout">
+      <div class="signup-visual">
+        <div class="overlay"></div>
+
+        <a href="#" class="back-link visual-back" onclick="showPage('landingPage'); return false;">&#8592;</a>
+
+        <div class="signup-visual-content">
+          <span class="auth-brand-label">Create your account</span>
+          <h1>ShelfSnap</h1>
+          <p>
+            Join the platform and get organized access to borrowing, catalog browsing,
+            and account services.
+          </p>
+        </div>
+      </div>
+
+      <div class="signup-panel">
+        <div class="auth-card signup-card">
+          <div class="card-header">
+            <h2>Create Account</h2>
+            <p>Fill in your details to register.</p>
+          </div>
+
+          <form id="signupForm" class="auth-form" onsubmit="checkSignup(event)">
+            <div class="input-group">
+              <label for="signupUserType">User Type</label>
+              <select id="signupUserType" required>
+                <option value="" disabled selected>Select user type</option>
+                <option value="student">Student</option>
+                <option value="admin">Admin</option>
+                <option value="faculty">Faculty</option>
+                <option value="librarian">Librarian</option>
+              </select>
+            </div>
+
+            <div class="name-grid">
+              <div class="input-group">
+                <label for="surname">Surname</label>
+                <input type="text" id="surname" placeholder="Enter surname" required />
+              </div>
+
+              <div class="input-group">
+                <label for="firstname">First Name</label>
+                <input type="text" id="firstname" placeholder="Enter first name" required />
+              </div>
+
+              <div class="input-group full-width">
+                <label for="middlename">Middle Name</label>
+                <input type="text" id="middlename" placeholder="Enter middle name (optional)" />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="signupEmail">Email</label>
+              <input type="email" id="signupEmail" placeholder="Enter your email" required />
+            </div>
+
+            <div class="input-group">
+              <label for="signupPassword">Password</label>
+              <input type="password" id="signupPassword" placeholder="Create password" required />
+            </div>
+
+            <div class="input-group">
+              <label for="signupRePassword">Confirm Password</label>
+              <input type="password" id="signupRePassword" placeholder="Re-enter password" required />
+            </div>
+
+            <div id="emailError" class="error-message">Email is already taken.</div>
+            <div id="passwordError" class="error-message">Passwords do not match.</div>
+
+            <div class="checkbox-stack">
+              <label class="checkbox-inline">
+                <input type="checkbox" id="termsCheck" />
+                <span>I have read and agree to the Terms of Service</span>
+              </label>
+
+              <label class="checkbox-inline">
+                <input type="checkbox" id="privacyCheck" required />
+                <span>I agree to the Data Privacy Policy</span>
+              </label>
+            </div>
+
+            <button type="submit" class="submit-btn">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMS MODAL -->
+  <div class="modal-overlay" id="termsModal">
+    <div class="terms-modal">
+      <button class="close-modal" type="button" onclick="closeModal('termsModal')">&times;</button>
+
+      <div class="modal-header">
+        <h3>Terms of Service</h3>
+        <p>Please review the terms before continuing.</p>
+      </div>
+
+      <div class="terms-content">
+        <p><strong>1. User Eligibility</strong></p>
+        <p>
+          ShelfSnap is intended for students, faculty, university staff, approved alumni,
+          and visitors with limited access. Users must provide accurate information during registration.
+        </p>
+
+        <p><strong>2. Appropriate Use</strong></p>
+        <p>
+          The platform must be used for academic, research, and library-related purposes only.
+          Users must not disrupt, misuse, or attempt unauthorized access to the system.
+        </p>
+
+        <p><strong>3. Account Responsibility</strong></p>
+        <p>
+          You are responsible for maintaining the confidentiality of your account credentials
+          and for activities performed under your account.
+        </p>
+
+        <p><strong>4. Privacy and Data Handling</strong></p>
+        <p>
+          ShelfSnap may collect and process account information needed to provide library services,
+          maintain system security, and improve user experience.
+        </p>
+
+        <p><strong>5. Service Access</strong></p>
+        <p>
+          Access may be limited, suspended, or revoked in cases of policy violations,
+          misuse, or administrative restriction.
+        </p>
+      </div>
+
+      <button class="agree-btn" type="button" onclick="agreeTerms()">Agree and Continue</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
